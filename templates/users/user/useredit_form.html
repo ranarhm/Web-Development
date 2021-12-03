@@ -1,0 +1,25 @@
+{% extends "events/base.html" %}
+{% load static %}
+{% block page-title %}Profile for {{ user.username }}{% endblock %}
+{% block title %}
+    <div id="title">
+        <h2>Profile for {{ user.username }}</h2>
+    </div><!-- #title -->
+{% endblock %}
+{% block content %}
+    <div class="event-story">
+        <form id="event-box" action="{% url 'users:user_edit' %}" method="POST">
+            <input id="edit-first-name" type="text" name="edit-first-name" value="{{ username.first_name }}" placeholder="First Name">
+            <input id="edit-last-name" type="text" name="edit-last-name" value="{{ username.last_name }}" placeholder="Last Name">
+            <input id="edit-role" type="text" name="edit-role" value="{{ username.role }}" placeholder="Edit Role">
+            <input id="edit-password" type="text" name="edit-password" value="{{ username.password }}" placeholder="Edit Password">
+
+            <input id="save" class="button" type="submit" value="Save">
+            {% csrf_token %}
+        </form>
+
+    </div>
+
+{% endblock %}
+
+

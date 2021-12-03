@@ -1,0 +1,64 @@
+{% extends "events/base.html" %}
+{% load static %}
+{% load humanize %}
+{% block page-title %}Comments{% endblock %}
+{% block title %}
+    <div id="title">
+        <h2>Comments for {{ story.title }}</h2>
+    </div><!-- #title -->
+{% endblock %}
+{% block content %}
+    <div class="event-story">
+{#        <h3>{{ story.Comment.title }}</h3>#}
+{#        <h3>{{ story.Comment.comment }}</h3>#}
+{#        {% if request.session.username == "admin" %}#}
+{#            <form class="edit" action="#" method="POST">#}
+{#                {% csrf_token %}#}
+{#                <input type="submit" name="edit" value="Edit Event">#}
+{#            </form><!-- #edit -->#}
+{#            <form class="delete" action="#" method="POST">#}
+{#                {% csrf_token %}#}
+{#                <input type="submit" name="delete" value="Delete Event">#}
+{#            </form><!-- #delete -->#}
+{#        {% endif %}#}
+{#        <h5>Posted by <a href="{% url 'users:profile' story.user.username %}">{{ story.user.username }}</a> {{ story.date_posted }}</h5>#}
+
+{#        {% for comment in comments %}#}
+{#        <li>#}
+{#            {{ comment.title }}#}
+{#            {{ comment.comment }}#}
+{#            {{ comment.author }}#}
+{#            {{ comment.user }}#}
+{#            {{ comment.date_posted }}#}
+{#        </li>#}
+{#        {% if request.session.username == "admin" %}#}
+{#            <form class="edit" action="#" method="POST">#}
+{#                {% csrf_token %}#}
+{#                <input type="submit" name="edit" value="Edit Event">#}
+{#            </form><!-- #edit -->#}
+{#            <form class="delete" action="#" method="POST">#}
+{#                {% csrf_token %}#}
+{#                <input type="submit" name="delete" value="Delete Event">#}
+{#            </form><!-- #delete -->#}
+{#        {% endif %}#}
+{#        {% empty %}#}
+{#            <li>No comment yet.</li>#}
+{#        {% endfor %}#}
+{#        <form id="event-box" action="{% url 'events:add_comment'%}" method="POST">#}
+{#            <input id="add-title" type="text" name="add-title" placeholder="Title">#}
+{#            <textarea id="add-comment" type="text" name="add-comment" placeholder="Add a comment..."></textare>#}
+{##}
+{#            <button class="post" data-story-id="{{ story.id }}" data-ajax-url="{% url 'events:event_registered' %}" type="submit">Post</button>#}
+{#            {% csrf_token %}#}
+{#       </form><!-- #event-box -->#}
+
+
+    </div><!-- #event-story -->
+
+{% endblock %}
+
+{% block ad %}
+    <div id="side-bar">
+
+    </div><!-- #side-bar -->
+{% endblock %}

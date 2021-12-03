@@ -1,0 +1,677 @@
+html, body {
+    margin: 0; padding: 0;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+div#header a {
+    color: maroon;
+}
+
+div#title-box {
+    width: 10%;
+    margin-left: 40%;
+}
+
+div#title-box h5 {
+    display: none;
+}
+
+div#title-box h4 {
+    font-size: x-large;
+}
+
+div#title-box img {
+    display: block;
+}
+
+form#Logged-in input {
+    display: block;
+}
+
+ul#primary-nav {
+    list-style-type: none;
+    padding: 0px;
+    font-family: "Times New Roman";
+}
+
+ul#primary-nav li a {
+    display: block;
+    text-decoration: none;
+    padding: 10px 30px;
+    background-color: gray;
+    color: white;
+}
+
+ul#primary-nav li a:hover {
+    background-color: lightgray;
+}
+
+ul#primary-nav li a:hover,
+ul#primary-nav li a.about-parent.active,
+ul#primary-nav .dd-menu ul li a:hover,
+ul#primary-nav .dd-menu ul li a.active{
+	background: lightgray;
+}
+
+ul#primary-nav .dd-menu{
+	top: 80px;
+	left: 0;
+}
+
+ul#primary-nav li a.about-parent.active + .dd-menu{
+	display: block;
+}
+
+ul#primary-nav li a.selected {
+    background-color: black;
+
+}
+
+div#title img {
+    float: left;
+}
+
+form.create-event input {
+    width: 50px;
+    margin-left: 55%;
+    width: 25%;
+    font-size: medium;
+    color: maroon;
+}
+
+div#title h5 {
+    margin-left: 100px;
+}
+
+form.register1 input {
+    width: 100px;
+    margin-left: 275px;
+}
+
+div#image-box2 a img {
+    width: 172px;
+}
+
+div#image-box img {
+    width: 375px;
+}
+
+div#intro-text h1 {
+    font-size: x-large;
+}
+
+div#intro-text h3 {
+    font-size: medium;
+}
+
+div.event-story {
+    width: 376px;
+    border-bottom: 1px solid black;
+}
+
+form#search-box {
+    float: right;
+}
+
+div#events a {
+    color: maroon;
+}
+
+form.checkbox {
+    float: left;
+}
+
+form#event-box {
+    width: 350px;
+    height: 250px;
+}
+
+form#event-box input {
+    margin-top: 10px;
+    width: 350px;
+    height: 20px;
+}
+
+form#event-box input.button {
+    margin-top: 80px;
+    margin-left: 90px;
+    width: 350px;
+    height: 20px;
+}
+
+form#discard-box input.button {
+
+    margin-left: 90px;
+    width: 350px;
+    height: 20px;
+}
+
+form#create-event input {
+    margin-left: 120px;
+    width: 100px;
+}
+
+div.event-story img {
+    float: left;
+}
+
+div.event-story img {
+    float: left;
+}
+
+div.event-date {
+    float: left;
+    display: block;
+    width: 50px;
+    text-align: center;
+}
+
+form.register {
+    float: right;
+    width: 60px;
+    margin-right: 5px;
+}
+
+div.event-story p.event-writer {
+    margin-left: 50px;
+    font-size: small;
+}
+
+div.event-like {
+    float: left;
+    display: block;
+    width: 50px;
+    text-align: center;
+    margin-top: -5px;
+}
+
+div.event-like .like-success {
+    color: maroon;
+    font-size: xx-small;
+    margin-bottom: 0;
+    margin-top: 4px;
+}
+
+
+div.event-story p.event-byline1 {
+    margin-left: 60px;
+    font-size: x-small;
+    margin-top: 80px;
+    font-family: "Times New Roman";
+}
+
+div.event-story form.add-to-calendar {
+    margin-left: 130px;
+    margin-top: -25px;
+}
+
+div.event-story div.registered {
+    width: 70px;
+    margin-left: 305px;
+    font-size: x-small;
+    margin-top: -15px;
+}
+
+div#side-bar a.ad {
+    display: none;
+}
+
+p#copyright {
+    width: 270px;
+    margin-left: 5px;
+    font-size: small;
+    color: gray;
+}
+
+div#social {
+    display: none;
+}
+
+p#menu {
+    float: right;
+    font-size: small;
+    margin-top: -28px;
+}
+
+p#menu a {
+    color: gray;
+}
+
+div#attendees div.registered {
+    float: left;
+    text-align: center;
+}
+
+div#attendees div.interested {
+    width: 80px;
+    margin-left: 50px;
+}
+div#attendees div.numI {
+    width: 80px;
+    margin-left: 80px;
+}
+
+/*button.cancel {*/
+/*    margin-left: 230px;*/
+/*    width: 50px;*/
+/*    height: 30px;*/
+/*    text-align: center;*/
+/*}*/
+
+/*button.save {*/
+/*    margin-left: 20px;*/
+/*    width: 50px;*/
+/*    height: 30px;*/
+/*}*/
+
+@media all and (max-width: 368px) {
+    div#events div.event-story h6 a {
+        display: block;
+        background-color: maroon;
+        text-decoration: none;
+        color: #fff;
+        padding: 5px 0px;
+        width: 30%;
+        text-align: center;
+
+    }
+}
+
+@media all and (min-width: 376px) {
+    html, body {
+        background-color: gray;
+    }
+
+    /* header styles */
+    div#header {
+        background-color: white;
+    }
+
+    ul.messages {
+        font-weight: bold;
+        margin-left: 9%;
+        width: 53%;
+        list-style: none;
+    }
+
+
+
+    ul.messages li.success {
+        background-color: lightgreen;
+    }
+
+    ul.messages li.info {
+        background-color: lightblue;
+    }
+
+    ul.messages li.warning {
+        background-color: red;
+    }
+
+    div#title-search h2 {
+        width: 35%;
+        margin-left: 22%;
+    }
+
+    div#title-box {
+        float: left;
+        width: 33%;
+        margin-left: 10%;
+    }
+
+    div#title-box img {
+        float: left;
+        display: inline;
+    }
+
+    div#title-box h4 {
+        margin-top: 30px;
+    }
+
+    div#title-box h5 {
+        margin-top: 20px;
+        display: block;
+    }
+
+    form#search-box {
+        float: right;
+        width: 23%;
+        margin-right: 26%;
+        text-align: right;
+    }
+
+    form#Login-box {
+        float: right;
+        width: 23%;
+        margin-top: 60px;
+        margin-right: 26%;
+        text-align: right;
+    }
+
+    form#Login-box input {
+        width: 33%;
+        text-align: left;
+    }
+
+    form#Logged-in {
+        float: right;
+        width: 23%;
+        margin-top: 30px;
+        margin-right: 28%;
+        text-align: right;
+    }
+
+    ul#primary-nav {
+        clear: left;
+        margin:0px 0px 0px 10%;
+        font-size: large;
+        display: flex;
+    }
+
+    ul#primary-nav li {
+        /*float: left;*/
+        position: relative;
+        display: block;
+    }
+
+    ul#primary-nav li a {
+        display: inline-block;
+    }
+
+    ul#primary-nav li a:hover {
+        background-color: lightgray;
+    }
+
+    ul#primary-nav .dd-menu{
+	    position: absolute;
+    }
+
+    /* content styles */
+    div#content {
+        clear: left;
+        background-color: white;
+        overflow: hidden;
+    }
+
+    div#image-box img {
+        width: 150%;
+    }
+
+    div#image-box, div#intro-text {
+        margin-left: 10%;
+    }
+
+    div#intro-text h1 {
+        font-size: xx-large;
+    }
+
+    div#intro-text h3 {
+        width: 60%;
+        font-size: large;
+    }
+
+    div#image-box2 {
+        clear: left;
+        margin-left: 10%;
+        width: 150%;
+    }
+
+    div#image-box2 a img {
+        width: 14%;
+    }
+
+    div#title-event {
+        margin-left: 22%;
+    }
+
+    div#filter-box, div#title {
+        margin-left: 6.2%;
+    }
+
+    div#title form.create-event input {
+        width: 10%;
+        margin-left: 47%;
+        margin-top: -15px;
+    }
+
+    form.create-event input {
+        font-size: medium;
+        color: maroon;
+    }
+
+    form.register1 input {
+        float: right;
+        margin-right: 36%;
+        margin-top: -35px;
+    }
+
+    div.event-type {
+        float: left;
+        width: 20%;
+    }
+
+    div.event-type h4 {
+        float: left;
+        margin-top: 2px;
+        margin-left: 0.3%;
+    }
+
+    div#events {
+        float: left;
+        width: 56%;
+    }
+
+    div.event-story {
+        clear: left;
+        width: 87%;
+        margin-left: 21.5%;
+    }
+
+    div.event-story form.calendar-open {
+        margin-top: 3%;
+        margin-bottom: 8%;
+    }
+
+    div.event-story dl dd {
+        margin-top: 1%;
+        margin-left: 30%;
+    }
+
+    div.event-story dl dt {
+        margin-top: 3%;
+
+    }
+
+    div.event-story dl h6 {
+        margin-top: 1%;
+    }
+
+    div.event-story img {
+        margin-right: 0.7%;
+    }
+
+    form#event-box {
+        width: 86%;
+        height: 590px;
+    }
+
+
+    form#event-box input {
+        float: left;
+        width: 86%;
+        height: 50px;
+    }
+
+
+    form#event-box p {
+        font-size: small;
+    }
+
+    form#event-box h5 {
+        float: left;
+        width: 86%;
+        height: 20px;
+    }
+
+    form#event-box input.submit {
+        width: 20%;
+        margin-left: 125%;
+        height: 20px;
+    }
+
+    form#cancel-box input.submit {
+        width: 17%;
+        margin-left: 107.5%;
+        height: 20px;
+    }
+
+    div.event-type form.checkbox {
+        width: 30px;
+    }
+
+    div.event-date {
+        float: left;
+        width: 100px;
+        margin-top: 10px;
+    }
+
+    div.event-story p.event-writer {
+        margin-left: 100px;
+        margin-top: 0px;
+    }
+
+    div.event-story p.event-byline {
+        margin-left: 100px;
+        margin-top: 70px;
+        font-size: x-small;
+    }
+
+    div.event-like {
+        float: left;
+        width: 50px;
+        margin-left: 25px;
+    }
+
+    div.event-story p.event-byline1 {
+        margin-left: 15%;
+        font-size: x-small;
+        margin-top: 55px;
+    }
+
+    div.event-story button.register {
+        float: right;
+        width: 10%;
+    }
+
+    div.event-story form.add-to-calendar {
+        margin-left: 28%;
+    }
+
+    div.event-story div.registered {
+        float: right;
+        width: 10%;
+        margin-left: 630px;
+        margin-top: 3px;
+        font-size: x-small;
+    }
+
+    div.registration .register-success {
+        float: right;
+        color: maroon;
+        font-size: xx-small;
+        margin-left: 630px;
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    div#side-bar {
+        margin-top: 18%;
+        width: 14%;
+        margin-left: 56%;
+    }
+
+    div#side-bar a.ad {
+        display: block;
+    }
+
+    div#side-bar a.map {
+        display: block;
+        margin-top: 55px;
+    }
+
+    a.map1 {
+        display: block;
+        margin-top: 170px;
+    }
+
+    div#side-bar h2 {
+        margin-top: 40px;
+        margin-left: 5px;
+    }
+
+    /*form.newEvent {*/
+    /*    margin-top: 100px;*/
+    /*    margin-left: 10%;*/
+    /*    width: 100%;*/
+    /*    height: 30px;*/
+    /*}*/
+
+    /*form.newEvent button#delete,*/
+    /*form.newEvent button#save {*/
+    /*    clear: left;*/
+    /*    margin-top: 25px;*/
+    /*    margin-left: 8%;*/
+    /*    width: 220%;*/
+    /*    height: 30px;*/
+    /*    text-align: center;*/
+    /*}*/
+
+
+    div#attendees div.registered,
+    div#attendees div.interested {
+        display: block;
+        margin-top: 0px;
+    }
+
+    form.edit {
+        margin-top: 30px;
+    }
+
+    form.delete {
+        margin-top: 10px;
+    }
+
+    /* footer styles */
+    div#footer {
+        clear: left;
+        color: white;
+    }
+
+    div#footer a {
+        color: inherit;
+    }
+
+    p#copyright {
+        float: left;
+        font-size: large;
+        color: white;
+    }
+
+    div#social {
+        display: block;
+        float: left;
+        margin-left: 20%;
+        margin-top: 12px;
+        list-style-type: none;
+        font-size: small;
+    }
+
+    p#menu {
+        float: right;
+        width: 13%;
+        margin-right: 16%;
+        font-size: medium;
+        margin-top: 12px;
+    }
+
+}

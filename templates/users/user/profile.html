@@ -1,0 +1,42 @@
+{% extends "events/base.html" %}
+{% load static %}
+{% block page-title %}Profile for {{ user.username }}{% endblock %}
+{% block title %}
+    <div id="title">
+        <h2>Profile for "{{ user.username }}"</h2>
+    </div><!-- #title -->
+{% endblock %}
+{% block content %}
+    <div class="event-story">
+        <dl>
+            <dt>Username</dt>
+            <dd>{{ user.username }}</dd>
+            <dt>First name</dt>
+            <dd>{{ user.first_name }}</dd>
+            <dt>Last name</dt>
+            <dd>{{ user.last_name }}</dd>
+            <dt>Role</dt>
+            <dd>{{ user.details.role }}</dd>
+            <dt>Password</dt>
+            <dd>{{ user.password.decode }}</dd>
+            <dt>Email address</dt>
+            <dd>{{ user.email }}</dd>
+            <form class="calendar-open">
+                <input type="submit" name="calendar" value="Configure Calendar and Events">
+            </form><!-- #calendar -->
+            {% if request.session.username != null %}
+                <form class="edit" action="{% url 'users:edit_profile' user.username %}" method="POST">
+                {% csrf_token %}
+                <input type="submit" name="edit" value="Edit Profile">
+            </form><!-- #edit -->
+            {% endif %}
+        </dl>
+
+        {% include "actions/action/feed.html" %}
+    </div>
+
+{% endblock %}
+
+{% block ad %}
+
+{% endblock %}

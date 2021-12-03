@@ -1,0 +1,61 @@
+{% extends "events/base.html" %}
+{% load static %}
+{#{% load humanize %}#}
+{% block page-title %}{{ story.title }}{% endblock %}
+{% block title %}
+    <div id="title">
+        <h2>{{ story.title }}</h2>
+        <img src="#" alt="Calendar">
+        <h5>{{ story.date_weekday }}, {{ story.date_month }} {{ story.date_day }} {{ story.time }}</h5>
+        <img src="#" alt="Location">
+        <h5>{{ story.location }}</h5>
+        <form class="register1">
+            <input type="submit" name="register" value="Register">
+        </form><!-- #register -->
+
+    </div><!-- #title -->
+{% endblock %}
+{% block content %}
+    <div class="event-story">
+        <h2>Overview</h2>
+        <h4>ISVT</h4>
+        <h5>Created by <a href="{% url 'users:profile' story.user.username %}">{{ story.user.username }}</a> {{ story.date_posted }}</h5>
+        <h3>{{ story.title }}</h3>
+        <p class="event-description">{{ story.description }}</p>
+        {% if request.session.username %}
+            <h6><a href="{% url 'events:view_comment' story.id %}">View comments</a></h6>
+        {% endif %}
+    </div><!-- #detail-story -->
+    <div class="event-story">
+        <div id="performers"><h2>Performers</h2>
+            <p class="performers">{{ story.role }}<a href="#"> {{ story.performers }}</a>
+        </div><!-- #performers -->
+    </div><!-- #event-story -->
+{% endblock %}
+
+{% block ad %}
+    <div id="side-bar">
+        <a href="https://www.google.com/maps/place/German+Club/@37.2202811,-80.4256304,13.25z/data=!4m5!3m4!1s0x884d95063054ad3f:0x6ace67bb1f508f6d!8m2!3d37.2156416!4d-80.4134854" class="map"><img src="{% static "img/Google%20Map.png" %}" alt="Map"></a>
+        <h2>Attendees</h2>
+        <div id="attendees">
+            <div class="registered">
+                <div class="registered">Registered</div>
+                <div class="numR">{{ story.registered }}</div>
+            </div><!-- #registered -->
+            <div class="interested">
+                <div class="interested">Interested</div>
+                <div class="numI">{{ story.score }}</div>
+            </div><!-- #interested -->
+        </div><!-- #attendees -->
+        {% if request.session.username == "admin" %}
+            <form class="edit" action="{% url 'events:edit' story.id %}" method="POST">
+                {% csrf_token %}
+                <input type="submit" name="edit" value="Edit Event">
+            </form><!-- #edit -->
+            <form class="delete" action="{% url 'events:delete' story.id %}" method="POST">
+                {% csrf_token %}
+                <input type="submit" name="delete" value="Delete Event">
+            </form><!-- #delete -->
+        {% endif %}
+    </div><!-- #side-bar -->
+{% endblock %}

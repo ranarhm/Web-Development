@@ -1,0 +1,62 @@
+{% extends "events/base.html" %}
+{% load static %}
+{#{% load humanize %}#}
+{% block scripts %}
+    <script src="{% static "JS/jquery-3.6.0.min.js" %}"></script>
+    <script src="{% static "JS/scripts.js" %}"></script>
+{% endblock %}
+{% block page-title %}Submit Events Story{% endblock %}
+{% block content %}
+
+    <div id="title-event">
+            <h2>Create Event</h2>
+            <div class="event-type">
+                <form class="checkbox">
+                    <input type="checkbox" name="checkbox">
+                </form><!-- #checkbox -->
+                <img src="#" alt="Laptop">
+                <h4>Online</h4>
+            </div><!-- #event-type -->
+            <div class="event-type">
+                <form class="checkbox">
+                    <input type="checkbox" name="checkbox">
+                </form><!-- #checkbox -->
+                <img src="#" alt="People">
+                <h4>In Person</h4>
+            </div><!-- #event-type -->
+        </div><!-- #title -->
+
+        <div class="event-story">
+            <h2>Event Details</h2>
+            <img src="#" alt="Person">
+            <h4><a href="#">{{ story.author }}</a> - Author</h4>
+            <form id="event-box" action="{% url 'events:event_added'%}" method="POST">
+                <p>* = required.</p>
+
+                <input id="add-title" type="text" name="add-title" placeholder="Event Name*" required>
+                <input id="add-description" type="text" name="add-description" placeholder="Description*" required>
+                <input id="add-start date" type="text" name="add-start date" placeholder="Start Date*" required>
+                <input id="add-start time" type="text" name="add-start time" placeholder="Start Time">
+                <h5><a href="#">+ End Date and Time</a></h5>
+                <input id="add-location" type="text" name="add-location" placeholder="Location">
+                <input id="add-guests" type="text" name="add-guests" placeholder="Add Guests*">
+                <input id="add-role" type="text" name="add-role" placeholder="Add Guests Role">
+
+                <input class="submit" type="submit" name="create" value="Create">
+
+                {% csrf_token %}
+            </form><!-- #event-box -->
+            <form id="cancel-box" action="{% url 'events:story-list' %}" method="POST">
+                <input class="submit" type="submit" name="cancel" value="Cancel">
+                {% csrf_token %}
+            </form>
+        </div><!-- #event-story -->
+
+{% endblock %}
+
+{% block ad %}
+    <div id="side-bar">
+        <a href="#" class="ad"><img src="{% static "img/ad.jpg" %}" alt="Ad"></a>
+        <a href="#" class="ad"><img src="{% static "img/ad.jpg" %}" alt="Ad"></a>
+    </div><!-- #side-bar -->
+{% endblock %}

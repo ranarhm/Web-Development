@@ -1,0 +1,41 @@
+{% extends "events/base.html" %}
+{% load static %}
+{#{% load humanize %}#}
+{% block scripts %}
+    <script src="{% static "JS/jquery-3.6.0.min.js" %}"></script>
+    <script src="{% static "JS/scripts.js" %}"></script>
+{% endblock %}
+{% block page-title %}Register User{% endblock %}
+{% block content %}
+
+    <div id="title-event">
+        <h2>Register User</h2>
+    </div><!-- #title -->
+
+    <div class="event-story">
+        <form id="register-user" action="{% url 'users:register' %}" method="post">
+            <p>* = required.</p>
+
+            <input id="register-username" type="text" name="username" placeholder="Username*" required>
+            <input id="register-email" type="email" name="email" placeholder="Email*" required>
+            <input id="register-first_name" type="text" name="first_name" placeholder="First name">
+            <input id="register-last_name" type="text" name="last_name" placeholder="Last name">
+            <input id="register-password" type="password" name="password" placeholder="Password*" required>
+
+            <input class="submit" type="submit" name="create" value="Register">
+            {% csrf_token %}
+        </form><!-- #event-box -->
+        <form id="cancel-box" action="{% url 'events:home' %}" method="POST">
+            <input class="submit" type="submit" name="cancel" value="Cancel">
+            {% csrf_token %}
+        </form>
+    </div><!-- #event-story -->
+
+{% endblock %}
+{% block ad %}
+    <div id="side-bar">
+        <a href="#" class="ad"><img src="{% static "img/ad.jpg" %}" alt="Ad"></a>
+        <a href="#" class="ad"><img src="{% static "img/ad.jpg" %}" alt="Ad"></a>
+    </div><!-- #side-bar -->
+{% endblock %}
+

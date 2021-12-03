@@ -1,0 +1,22 @@
+{% extends "events/base.html" %}
+{% load static %}
+{#{% load humanize %}#}
+{% block scripts %}
+    <script src="{% static "JS/jquery-3.6.0.min.js" %}"></script>
+    <script src="{% static "JS/scripts.js" %}"></script>
+{% endblock %}
+{% block page-title %}Events Story{% endblock %}
+{% block content %}
+
+    <div id="title-search">
+        <h2>Search results</h2>
+    </div><!-- #title -->
+
+{% endblock %}
+
+{% block ad %}
+    <div id="side-bar">
+        <a href="#" class="ad"><img src="{% static "img/ad.jpg" %}" alt="Ad"></a>
+        <a href="#" class="ad"><img src="{% static "img/ad.jpg" %}" alt="Ad"></a>
+    </div><!-- #side-bar -->
+{% endblock %}

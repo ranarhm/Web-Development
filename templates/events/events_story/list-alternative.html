@@ -1,0 +1,60 @@
+{% extends "events/base.html" %}
+{% load static %}
+{#{% load humanize %}#}
+{% block scripts %}
+    <script src="{% static "JS/jquery-3.6.0.min.js" %}"></script>
+    <script src="{% static "JS/scripts.js" %}"></script>
+{% endblock %}
+{% block title %}
+    <div id="title">
+        <h2>Events</h2>
+        <form action="list-search-results.html" method="GET">
+            <input type="search" name="search-event" placeholder="search event">
+        </form>
+    </div><!-- #title -->
+{% endblock %}
+{% block filter %}
+    <div id="filter-box">
+        <h3>Filter</h3>
+        <form id="Filter">
+            <input type="button" name="type" value="Type">
+            <input type="button" name="topic" value="Topic">
+            <input type="button" name="month" value="Month">
+        </form>
+    </div><!-- #filter-box -->
+{% endblock %}
+{% block page-title %}Events Story{% endblock %}
+{% block content %}
+
+    {% for story in stories %}
+        <div class="event-story">
+            <div class="event-date">
+                <div class="event-month">{{ story.date_month }}</div>
+                <div class="event-day">{{ story.date_day }}</div>
+            </div><!-- #event-date -->
+            <form class="register">
+                <input type="submit" name="register" value="Register">
+            </form><!-- #register -->
+            <h3 class="event-title"><a href="{% url "events:story-detail" story.id %}">{{ story.title }}</a></h3>
+            <p class="event-writer">{{ story.author }}<a href="#">{{ story.author_name }}</a></p>
+            <div class="event-like">
+                <button class="like">like</button>
+                <div class="score">{{ story.score }}</div>
+                <button class="dislike">dislike</button>
+            </div><!-- #event-like -->
+            <p class="event-byline1">{{ story.host }}</p>
+            <form class="add-to-calendar">
+                <input type="submit" name="add" value="Add to Calendar">
+            </form><!-- #add-to-calendar -->
+            <div class="registered">{{ story.registered }}</div>
+        </div><!-- #event-story -->
+    {% endfor %}
+
+{% endblock %}
+
+{% block ad %}
+    <div id="side-bar">
+        <a href="#" class="ad"><img src="{% static "img/ad.jpg" %}" alt="Ad"></a>
+        <a href="#" class="ad"><img src="{% static "img/ad.jpg" %}" alt="Ad"></a>
+    </div><!-- #side-bar -->
+{% endblock %}

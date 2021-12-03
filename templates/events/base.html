@@ -1,0 +1,108 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Iranian Society of Virginia Tech | {% block page-title %}{% endblock %}</title>
+        {% block scripts %}
+            <script src="{% static "JS/jquery-3.6.0.min.js" %}"></script>
+            <script src="{% static "JS/scripts.js" %}"></script>
+        {% endblock %}
+        <link rel="stylesheet" type="text/css" href="{% static "CSS/responsive.css" %}">
+    </head>
+    <body>
+    <div id="header">
+
+        <div id="title-box">
+            <!-- #image from ISVT media group in Telegram -->
+            <img src="{% static "img/Logo.png" %}" alt="Logo">
+            <h4>ISVT</h4>
+            <h5>Iranian Society of Virginia Tech</h5>
+        </div><!-- #title-box -->
+
+        <form id="search-box" action="{% url 'events:search-results' %}" method="GET">
+            <input type="search" name="search" placeholder="search">
+        </form><!-- #search-box -->
+
+        {% if request.session.username %}
+
+            <form id="Logged-in">
+                <p>Logged in as <a href="{% url "users:profile" request.session.username %}" ><strong>{{ request.session.username }}</strong></a></p>
+                <a href="{% url 'users:logout' %}">Log out</a>
+            </form><!-- #Login-box -->
+
+        {% else %}
+
+            <form id="Login-box" action="{% url 'users:login' %}" method="POST">
+                {% csrf_token %}
+                <input type="text" name="username" placeholder="username">
+                <input type="password" name="pw" placeholder="password">
+                <input type="submit" name="submit" value="log in"> or <a href="{% url 'users:register' %}">Join</a>
+            </form><!-- #Login-box -->
+
+        {% endif %}
+
+
+        <ul id="primary-nav">
+            <li><a href="{% url 'events:home' %}">Home</a></li>
+            <li><a href="#" class="about-parent">
+                <div class="fold">
+                    <span id="text">About</span>
+                </div>
+                </a>
+            </li>
+            <li><a href="{% url 'events:story-list' %}">Programs and Events</a></li>
+            <li><a href="#">Discussion</a></li>
+            <li><a href="{% url 'events:members' %}">Members</a></li>
+            <li><a href="#">Media</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul><!-- #primary-nav -->
+
+    </div><!-- #header -->
+    <div id="content">
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <div id="title">
+            {% block title %}{% endblock %}
+        </div><!-- #title -->
+
+        <div id="filter-box">
+            {% block filter %}{% endblock %}
+        </div><!-- #filter-box -->
+
+        <div id="events">
+            {% block content %}{% endblock %}
+        </div><!-- #events -->
+
+
+        <div id="side-bar">
+            {% block ad %}{% endblock %}
+        </div><!-- #side-bar -->
+
+{#    <div id="side-bar">#}
+{#            <a href="#" class="ad"><img src="{% static "img/ad.jpg" %}" alt="Ad"></a>#}
+{#            <a href="#" class="ad"><img src="{% static "img/ad.jpg" %}" alt="Ad"></a>#}
+{#        </div><!-- #side-bar -->#}
+    </div><!-- #content -->
+
+    <div id="footer">
+        <p id="copyright">Copyright 2021 Iranian Society at VT</p>
+        <div id="social">
+            <a href="#"><img src="#" alt="Facebook"></a>
+            <a href="#"><img src="#" alt="Twitter"></a>
+            <a href="#"><img src="#" alt="Instagram"></a>
+        </div><!-- #social -->
+
+        <p id="menu"><a href="#">Policies</a> | <a href="#">Contact</a>
+
+    </div><!-- #footer -->
+
+    </body>
+</html>

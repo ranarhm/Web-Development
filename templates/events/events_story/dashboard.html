@@ -1,0 +1,21 @@
+{% extends "events/base.html" %}
+{% load static %}
+{% block page-title %}Home{% endblock %}
+{% block content %}
+
+    <div id="image-box">
+        <div id="intro-text">
+            <h1>Iranian Society of Virginia Tech</h1>
+            <h3>Welcome to your dashboard, <strong>{{ request.session.username }}</strong>!</h3>
+            {% include "actions/action/feed.html" %}
+        </div><!-- #intro-text -->
+
+    </div>
+{% endblock %}
+{% block ad %}
+
+    <div id="side-bar">
+        <a href="#" class="ad"><img src="{% static "img/ad.jpg" %}" alt="Ad"></a>
+        <a href="#" class="ad"><img src="{% static "img/ad.jpg" %}" alt="Ad"></a>
+    </div><!-- #side-bar -->
+{% endblock %}

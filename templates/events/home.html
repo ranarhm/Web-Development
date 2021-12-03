@@ -1,0 +1,25 @@
+{% extends "events/base.html" %}
+{% load static %}
+{% block page-title %}Home{% endblock %}
+{% block content %}
+    <div id="image-box">
+            <!-- #image from ISVT media group in Telegram -->
+            <img src="{% static "img/intro.JPG" %}" alt="Intro">
+        </div><!-- #image-box -->
+
+        <div id="intro-text">
+            <h1>Iranian Society of Virginia Tech</h1>
+            <h3>A non-religious, non-political student organization aiming to promote Persian culture among
+                Virginia Tech Community</h3>
+        </div><!-- #intro-text -->
+
+        <div id="image-box2">
+            <!-- #image made by RaenaRahimiBafrani -->
+            <img src="{% static "img/Calendar-September-2021.JPG" %}" alt="Calendar">
+            <!-- #image from ISVT media group in Telegram -->
+            <a href="#"><img src="{% static "img/flyer.jpeg" %}" alt="Flyer"></a>
+            <a href="#"><img src="{% static "img/flyer.jpeg" %}" alt="Flyer"></a>
+            <a href="#"><img src="{% static "img/flyer.jpeg" %}" alt="Flyer"></a>
+            <a href="#"><img src="{% static "img/flyer.jpeg" %}" alt="Flyer"></a>
+        </div><!-- #image-box2 -->
+{% endblock %}
