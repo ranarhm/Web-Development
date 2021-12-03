@@ -197,14 +197,11 @@ def search_results(request):
                   )
 
 
-def view_comment(request, story_id):
-    events_stories = EventsStory.objects.all()
-    for story in events_stories:
-        if story.id == story_id:
-            break
+def view_comment(request):
+    events_stories = Comment.objects.all()
     return render(request,
                   "events/events_story/comments.html",
-                  {"story": story}
+                  {"comments": events_stories}
                   )
 
 
@@ -231,13 +228,19 @@ def add_comment(request):
         )
         action.save()
         messages.add_message(request, messages.SUCCESS, "You successfully posted a new comment")
-        element = cm
-        return redirect('events:view_comment', element.id)
-    # else:
-    #     # show the template
-    #     return render(request,
-    #                   "events/events_story/comments.html",
-    #                   )
+        return redirect('events:view_comment')
+    else:
+        # show the template
+        return render(request,
+                      "events/events_story/comments.html",
+                      )
+
+
+def delete_comment(request, comment_id):
+    cm = Comment.objects.get(id=comment_id)
+    cm.delete()
+
+    return redirect('events:view_comment')
 
 
 def members(request):

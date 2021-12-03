@@ -111,16 +111,16 @@ def user_edit(request):
 
         ur = User.objects.all()[0]
         if first_name:
-            ur.first_name = first_name
+            user.first_name = first_name
         if last_name:
-            ur.last_name = last_name
+            user.last_name = last_name
         if role:
-            ur.role = role
-        if password:
-            ur.password = password
-        ur.save()
+            user.details.role = role
+        # if password:
+        user.set_password(password)
+        user.save()
 
-        return redirect('users:profile', ur.username)
+        return redirect('users:profile', user.username)
 
 
 

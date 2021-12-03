@@ -8,8 +8,13 @@ from django.urls import reverse
 
 
 class Details(models.Model):
+    ROLES = (
+        ('admin', 'admin'),
+        ('registered', 'registered'),
+        ('unregistered', 'unregistered'),
+    )
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    role = models.CharField(default="regular", max_length=50)
+    role = models.CharField(default="registered", max_length=50, choices=ROLES)
 
 
 @receiver(post_save, sender=User)
@@ -22,10 +27,5 @@ def create_user_details(sender, instance, created, **kwargs):
 def save_user_details(sender, instance, **kwargs):
     instance.details.save()
 
-
-# class UserEditForm(ModelForm):
-#     class Meta:
-#         model = Details
-#         fields = '__all__'
 
 

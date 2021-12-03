@@ -23,7 +23,7 @@
         <h3>{{ story.title }}</h3>
         <p class="event-description">{{ story.description }}</p>
         {% if request.session.username %}
-            <h6><a href="{% url 'events:view_comment' story.id %}">View comments</a></h6>
+            <h6><a href="{% url 'events:view_comment'%}">View comments</a></h6>
         {% endif %}
     </div><!-- #detail-story -->
     <div class="event-story">
@@ -47,7 +47,7 @@
                 <div class="numI">{{ story.score }}</div>
             </div><!-- #interested -->
         </div><!-- #attendees -->
-        {% if request.session.username == "admin" %}
+        {% if request.session.role == "admin" %}
             <form class="edit" action="{% url 'events:edit' story.id %}" method="POST">
                 {% csrf_token %}
                 <input type="submit" name="edit" value="Edit Event">

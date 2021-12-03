@@ -1,9 +1,9 @@
 {% extends "events/base.html" %}
 {% load static %}
-{% block page-title %}Profile for {{ user.username }}{% endblock %}
+{% block page-title %}Profile for {{ username.username }}{% endblock %}
 {% block title %}
     <div id="title">
-        <h2>Profile for {{ user.username }}</h2>
+        <h2>Profile for {{ username.username }}</h2>
     </div><!-- #title -->
 {% endblock %}
 {% block content %}
@@ -11,10 +11,16 @@
         <form id="event-box" action="{% url 'users:user_edit' %}" method="POST">
             <input id="edit-first-name" type="text" name="edit-first-name" value="{{ username.first_name }}" placeholder="First Name">
             <input id="edit-last-name" type="text" name="edit-last-name" value="{{ username.last_name }}" placeholder="Last Name">
-            <input id="edit-role" type="text" name="edit-role" value="{{ username.role }}" placeholder="Edit Role">
-            <input id="edit-password" type="text" name="edit-password" value="{{ username.password }}" placeholder="Edit Password">
+            {% if request.session.role == "admin" or request.session.username == "admin" %}
+                <input id="edit-role" type="text" name="edit-role" value="{{ username.role }}" placeholder="Edit Role">
+            {% endif %}
+            <input id="edit-password" type="text" name="edit-password" value="{{ username.password.decode }}" placeholder="Edit Password">
 
             <input id="save" class="button" type="submit" value="Save">
+            {% csrf_token %}
+        </form>
+        <form id="discard-box" action="{% url 'users:profile' username.username %}" method="POST">
+            <input id="delete" class="button" type="submit" value="Cancel">
             {% csrf_token %}
         </form>
 

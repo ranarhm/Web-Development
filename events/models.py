@@ -28,7 +28,6 @@ class EventsStory(models.Model):
         return reverse('events:story-detail', args=[self.id])
 
 
-
 class Comment(models.Model):
     title = models.CharField(max_length=200)
     comment = models.TextField()

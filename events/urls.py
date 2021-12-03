@@ -13,7 +13,8 @@ urlpatterns = [
     path('stories/changed', views.event_changed, name='event_changed'),
     path('stories/delete/<int:story_id>', views.delete_event, name='delete'),
     path('stories/registered', views.events_story_registered, name='event_registered'),
-    path('stories/comments/<int:story_id>', views.view_comment, name='view_comment'),
+    path('stories/comments', views.view_comment, name='view_comment'),
     path('stories/new-comment', views.add_comment, name='add_comment'),
+    path('stories/comment/delete/<int:comment_id>', views.delete_comment, name='delete_comment'),
     path('members', views.members, name='members'),
 ]
