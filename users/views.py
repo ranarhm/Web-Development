@@ -39,9 +39,9 @@ def register(request):
         user.save()
 
         user1 = authenticate(username=username, password=password)
-        if user1 is not None:
-            request.session['username'] = user1.username
-            request.session['role'] = user1.details.role
+        if user is not None:
+            request.session['username'] = user.username
+            request.session['role'] = user.details.role
 
         # log the action
         action = Action(
