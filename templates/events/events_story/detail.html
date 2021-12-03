@@ -47,7 +47,7 @@
                 <div class="numI">{{ story.score }}</div>
             </div><!-- #interested -->
         </div><!-- #attendees -->
-        {% if request.session.role == "admin" %}
+        {% if request.session.role == "admin" or request.session.username == "admin" %}
             <form class="edit" action="{% url 'events:edit' story.id %}" method="POST">
                 {% csrf_token %}
                 <input type="submit" name="edit" value="Edit Event">
