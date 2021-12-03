@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -79,16 +81,22 @@ WSGI_APPLICATION = 'Django.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'cs5774db',
-        'USER': 'postgres',
-        'PASSWORD': 'Raha8252$',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+if 'DATABASE_URL' in os.environ:
+    # heroku db
+    DATABASES = {'default': dj_database_url.config()}
+else:
+    # local machine
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'cs5774db',
+            'USER': 'postgres',
+            'PASSWORD': 'Raha8252$',
+            'HOST': '127.0.0.1',
+            'PORT': '5432',
+        }
     }
-}
+
 
 # DATABASES = {
 #     'default': {
