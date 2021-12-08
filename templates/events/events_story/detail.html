@@ -1,13 +1,13 @@
 {% extends "events/base.html" %}
 {% load static %}
-{#{% load humanize %}#}
+{% load humanize %}
 {% block page-title %}{{ story.title }}{% endblock %}
 {% block title %}
     <div id="title">
         <h2>{{ story.title }}</h2>
-        <img src="#" alt="Calendar">
+        <h6>Calendar</h6>
         <h5>{{ story.date_weekday }}, {{ story.date_month }} {{ story.date_day }} {{ story.time }}</h5>
-        <img src="#" alt="Location">
+        <h6>Location</h6>
         <h5>{{ story.location }}</h5>
         <form class="register1">
             <input type="submit" name="register" value="Register">
@@ -25,6 +25,8 @@
         {% if request.session.username %}
             <h6><a href="{% url 'events:view_comment'%}">View comments</a></h6>
         {% endif %}
+        <h6>Learn more form Wikipedia</h6>
+        <p><a href="http://en.wikipedia.org/wiki/{{ top_wiki_title|urlencode }}">{{ top_wiki_title }}</a></p>
     </div><!-- #detail-story -->
     <div class="event-story">
         <div id="performers"><h2>Performers</h2>
@@ -47,7 +49,7 @@
                 <div class="numI">{{ story.score }}</div>
             </div><!-- #interested -->
         </div><!-- #attendees -->
-        {% if request.session.role == "admin" or request.session.username == "admin" %}
+{#        {% if request.session.role == "admin" or request.session.username == "admin" %}#}
             <form class="edit" action="{% url 'events:edit' story.id %}" method="POST">
                 {% csrf_token %}
                 <input type="submit" name="edit" value="Edit Event">
@@ -56,6 +58,6 @@
                 {% csrf_token %}
                 <input type="submit" name="delete" value="Delete Event">
             </form><!-- #delete -->
-        {% endif %}
+{#        {% endif %}#}
     </div><!-- #side-bar -->
 {% endblock %}

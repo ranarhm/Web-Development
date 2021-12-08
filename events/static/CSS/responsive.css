@@ -67,14 +67,11 @@ ul#primary-nav li a.selected {
 
 }
 
-div#title img {
-    float: left;
-}
 
 form.create-event input {
     width: 50px;
     margin-left: 55%;
-    width: 25%;
+    /*width: 25%;*/
     font-size: medium;
     color: maroon;
 }

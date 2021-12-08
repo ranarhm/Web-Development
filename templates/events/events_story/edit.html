@@ -30,7 +30,7 @@
             <h2>Event Details</h2>
             <img src="#" alt="Person">
             <h4><a href="#">{{ story.user.username }}</a> - Host</h4>
-            <form id="event-box" action="{% url 'events:event_changed' %}" method="POST">
+            <form id="event-box" action="{% url 'events:event_changed' story.id %}" method="POST">
 
                 <input id="edit-title" type="text" name="edit-title" value="{{ story.title }}" placeholder="Title">
                 <input id="edit-description" type="text" name="description" value="{{ story.description }}" placeholder="Description">

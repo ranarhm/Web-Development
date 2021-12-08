@@ -117,7 +117,8 @@ def user_edit(request):
         if role:
             user.details.role = role
         # if password:
-        user.set_password(password)
+        if len(password) != 0:
+            user.set_password(password)
         user.save()
 
         return redirect('users:profile', user.username)

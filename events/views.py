@@ -3,6 +3,10 @@ from django.contrib import messages
 from .models import regular_user, admin_user, EventsStory, User, Comment
 from actions.models import Action
 from django.http import JsonResponse
+import requests
+import boto3
+from django.template.loader import render_to_string
+from django.contrib.auth import authenticate
 
 
 # Create your views here.
@@ -21,19 +25,34 @@ def events_story_list(request):
 
 
 def events_story_detail(request, story_id):
-    events_stories = EventsStory.objects.all()
-    for story in events_stories:
-        if story.id == story_id:
-            break
+    story = EventsStory.objects.get(pk=story_id)
+
+    endpoint = "https://en.wikipedia.org/w/api.php"
+    parameters = {
+        "action": "query",
+        "list": "search",
+        "srsearch": story.title,
+        "format": "json",
+    }
+
+    try:
+        response = requests.get(endpoint, params=parameters)
+        wikidata = response.json()
+        top_wiki_title = wikidata["query"]["search"][0]["title"]
+    except IndexError:
+        top_wiki_title = None
+
     return render(request,
                   "events/events_story/detail.html",
-                  {"story": story}
+                  {"story": story,
+                   "top_wiki_title": top_wiki_title}
                   )
 
 
 def home(request):
     if request.session.get("username", False):
         actions = Action.objects.all().order_by('-created')
+
         return render(request,
                       "events/events_story/dashboard.html",
                       {"actions": actions}
@@ -62,6 +81,25 @@ def event_added(request):
         guests = request.POST.get('add-guests')
         role = request.POST.get('add-role')
 
+        # content moderation
+        endpoint = "https://isvttextmod.cognitiveservices.azure.com/contentmoderator/moderate/v1.0/ProcessText/Screen"
+        parameters = {
+            'classify': True,
+            # 'autocorrect': '{boolean}',
+        }
+        headers = {
+            'Content-Type': 'text/plain',
+            'Ocp-Apim-Subscription-Key': '5d85180a097b4949ba5bc2b583c6569f',
+        }
+        data = description
+        response = requests.post(endpoint, params=parameters, headers=headers, data=data)
+        response_json = response.json()
+        review_recommended = response_json["Classification"]["ReviewRecommended"]
+        if review_recommended:
+            messages.add_message(request, messages.ERROR,
+                                 "Your description contains inappropriate contents. Please change it.")
+            return redirect('events:create-event')
+
         user = User.objects.get(username=request.session.get("username"))
 
         es = EventsStory(
@@ -78,6 +116,36 @@ def event_added(request):
             role=role,
         )
         es.save()
+
+        # begin mturk
+        mturk_sandbox = 'https://mturk-requester-sandbox.us-east-1.amazonaws.com'
+        mturk = boto3.client('mturk',
+                             aws_access_key_id="AKIA2H4GXO6OS6WFJL4Z",
+                             aws_secret_access_key="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",
+                             region_name='us-east-1',
+                             endpoint_url=mturk_sandbox
+                             )
+        print("I have $" + mturk.get_account_balance()['AvailableBalance'] + " in my Sandbox account")
+
+        # question = open(name='questions.xml', mode='r').read()
+        question = render_to_string('events/events_story/questions.xml', {'story_id': es.id, 'domain': request.META['HTTP_HOST']})
+        new_hit = mturk.create_hit(
+            Title='Make an event story headline more exciting',
+            Description='Read an event story headline and description and edit it to make it more exciting and interesting',
+            Keywords='headline, event, writing, cs5774f21',
+            Reward='0.15',
+            MaxAssignments=10,
+            LifetimeInSeconds=600,
+            AssignmentDurationInSeconds=600,
+            AutoApprovalDelayInSeconds=600,
+            Question=question,
+        )
+        print("A new HIT has been created. You can preview it here:")
+        print("https://workersandbox.mturk.com/mturk/preview?groupId=" + new_hit['HIT']['HITGroupId'])
+        print("HITID = " + new_hit['HIT']['HITId'] + " (Use to Get Results)")
+
+        # end mturk
+
         # log the action
         action = Action(
             user=user,
@@ -96,62 +164,68 @@ def event_added(request):
 
 
 def edit_event(request, story_id):
-    events_stories = EventsStory.objects.all()
-    for story in events_stories:
-        if story.id == story_id:
-            break
+    story = EventsStory.objects.get(pk=story_id)
     return render(request,
                   "events/events_story/edit.html",
                   {"story": story}
                   )
 
 
-def event_changed(request):
-    if request.method == 'POST':
-        # process the form
-        title = request.POST.get('edit-title')
-        description = request.POST.get('edit-description')
-        startdate = request.POST.get('edit-date')
-        starttime = request.POST.get('edit-time')
-        location = request.POST.get('edit-location')
-        guests = request.POST.get('edit-guests')
-        role = request.POST.get('edit-role')
+def event_changed(request, story_id):
 
+    es = EventsStory.objects.get(pk=story_id)
+
+    mturk = request.GET.get('mturk', False)
+    if mturk == 'yes':
+        user = authenticate(username='mturk', password='mturk')
+        request.session['username'] = user.username
+        request.session['role'] = user.details.role
+    else:
         user = User.objects.get(username=request.session.get("username"))
 
-        es = EventsStory.objects.all()[0]
-        if title:
-            es.title = title
-        if description:
-            es.description = description
-        if startdate:
-            es.startdate = startdate
-        if starttime:
-            es.starttime = starttime
-        if location:
-            es.location = location
-        if guests:
-            es.guests = guests
-        if role:
-            es.role = role
-        es.save()
+    if user.id == es.user.id or request.session['role'] == 'admin' or user.username == 'mturk':
+        if request.method == 'POST':
+            # process the form
+            title = request.POST.get('edit-title')
+            description = request.POST.get('edit-description')
+            startdate = request.POST.get('edit-date')
+            starttime = request.POST.get('edit-time')
+            location = request.POST.get('edit-location')
+            guests = request.POST.get('edit-guests')
+            role = request.POST.get('edit-role')
 
-        # log the action
-        action = Action(
-            user=user,
-            verb="edited a story",
-            target=es
-        )
-        action.save()
+            if title:
+                es.title = title
+            if description:
+                es.description = description
+            if startdate:
+                es.startdate = startdate
+            if starttime:
+                es.starttime = starttime
+            if location:
+                es.location = location
+            if guests:
+                es.guests = guests
+            if role:
+                es.role = role
+            es.save()
 
-        messages.add_message(request, messages.SUCCESS, "You successfully edited an event story: %s" % es.title)
-        element = es
-        return redirect('events:story-detail', element.id)
-    else:
-        # show the template
-        return render(request,
-                      "events/events_story/edit.html",
-                      )
+            # log the action
+            action = Action(
+                user=user,
+                verb="edited a story",
+                target=es
+            )
+            action.save()
+
+            messages.add_message(request, messages.SUCCESS, "You successfully edited an event story: %s" % es.title)
+            element = es
+            return redirect('events:story-detail', story_id=story_id)
+        else:
+            # show the template
+            return render(request,
+                          "events/events_story/edit.html",
+                          )
 
 
 def delete_event(request, story_id):
