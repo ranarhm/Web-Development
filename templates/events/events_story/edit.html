@@ -33,12 +33,12 @@
             <form id="event-box" action="{% url 'events:event_changed' story.id %}" method="POST">
 
                 <input id="edit-title" type="text" name="edit-title" value="{{ story.title }}" placeholder="Title">
-                <input id="edit-description" type="text" name="description" value="{{ story.description }}" placeholder="Description">
-                <input id="edit-date" type="text" name="start date" value="{{ story.date_weekday }} {{ story.date_month }} {{ story.date_day }}" placeholder="Start Date">
-                <input id="edit-time" type="text" name="start time" value="{{ story.date_month }}" placeholder="Start Time">
+                <input id="edit-description" type="text" name="edit-description" value="{{ story.description }}" placeholder="Description">
+                <input id="edit-date" type="text" name="edit-date" value="{{ story.date_weekday }} {{ story.date_month }} {{ story.date_day }}" placeholder="Start Date">
+                <input id="edit-time" type="text" name="edit-time" value="{{ story.date_month }}" placeholder="Start Time">
                 <h5><a href="#">+ End Date and Time</a></h5>
-                <input id="edit-location" type="text" name="location" value="{{ story.location }}" placeholder="Location">
-                <input id="edit-guests" type="text" name="add guests" value="{{ story.performers }}" placeholder="Guests">
+                <input id="edit-location" type="text" name="edit-location" value="{{ story.location }}" placeholder="Location">
+                <input id="edit-guests" type="text" name="edit-guests" value="{{ story.performers }}" placeholder="Guests">
                 <input id="edit-role" type="text" name="edit-role" value="{{ story.role }}" placeholder="Role" >
 
                 <input id="save" class="button" type="submit" value="Save">

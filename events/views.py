@@ -188,11 +188,14 @@ def event_changed(request, story_id):
             # process the form
             title = request.POST.get('edit-title')
             description = request.POST.get('edit-description')
+            print(description)
             startdate = request.POST.get('edit-date')
             starttime = request.POST.get('edit-time')
             location = request.POST.get('edit-location')
             guests = request.POST.get('edit-guests')
+            print(guests)
             role = request.POST.get('edit-role')
+            print(role)
 
             if title:
                 es.title = title
