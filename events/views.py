@@ -85,7 +85,6 @@ def event_added(request):
         endpoint = "https://isvttextmod.cognitiveservices.azure.com/contentmoderator/moderate/v1.0/ProcessText/Screen"
         parameters = {
             'classify': True,
-            # 'autocorrect': '{boolean}',
         }
         headers = {
             'Content-Type': 'text/plain',
@@ -382,8 +381,9 @@ def edit_comment(request, comment_id):
 
 
 def delete_comment(request, comment_id):
+    cm = Comment.objects.get(pk=comment_id)
     user = User.objects.get(username=request.session.get("username"))
-    if request.session['username'] == user.id or request.session['role'] == 'admin':
+    if user.id == cm.user.id or request.session['role'] == 'admin':
         cm = Comment.objects.get(id=comment_id)
         cm.delete()
 
@@ -396,33 +396,34 @@ def comment_changed(request, comment_id):
 
     user = User.objects.get(username=request.session.get("username"))
 
-    # if user.id == cm.user.id or request.session['role'] == 'admin':
-    if request.method == 'POST':
-        # process the form
-        title = request.POST.get('edit-title')
-        comment = request.POST.get('edit-comment')
+    if user.id == cm.user.id or request.session['role'] == 'admin':
+        if request.method == 'POST':
+            # process the form
+            title = request.POST.get('edit-title')
+            comment = request.POST.get('edit-comment')
 
-        if title:
-            cm.title = title
-        if comment:
-            cm.comment = comment
+            if title:
+                cm.title = title
+            if comment:
+                cm.comment = comment
 
-        cm.save()
+            cm.save()
 
-        # log the action
-        action = Action(
-            user=user,
-            verb="edited a comment",
-            target=cm
-        )
-        action.save()
+            # log the action
+            action = Action(
+                user=user,
+                verb="edited a comment",
+                target=cm
+            )
+            action.save()
 
-        return redirect('events:view_comments')
-    else:
-        # show the template
-        return render(request,
-                      "events/events_story/edit-comment.html",
-                      )
+            return redirect('events:view_comments')
+        else:
+            # show the template
+            return render(request,
+                          "events/events_story/edit-comment.html",
+                          )
+
 
 
 def members(request):

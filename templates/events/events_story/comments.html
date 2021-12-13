@@ -13,7 +13,7 @@
         <h4>{{ comment.title }}</h4>
         <h5>{{ comment.comment }}</h5>
         <h6>Posted by <a href="{% url 'users:profile' comment.user.username %}">{{ comment.user.username }}</a> {{ comment.date_posted }}</h6>
-        {% if request.session.role == "admin" or request.session.username == comment.user.username %}
+
             <form class="edit" action="{% url 'events:edit_comment' comment.id %}" method="POST">
                 {% csrf_token %}
                 <input type="submit" name="edit" value="Edit Comment">
@@ -22,7 +22,7 @@
                 {% csrf_token %}
                 <input type="submit" name="delete" value="Delete Comment">
             </form><!-- #delete -->
-        {% endif %}
+
 
         {% empty %}
             <li>No comment yet.</li>
