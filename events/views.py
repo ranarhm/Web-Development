@@ -320,7 +320,7 @@ def events_story_description(request):
 
 
 def search_results(request):
-    events_stories = EventsStory.objects.filter(title__contains="party")
+    events_stories = EventsStory.objects.filter(title__contains="Party")
     return render(request,
                   "events/events_story/list-search-main.html",
                   {"stories": events_stories}
