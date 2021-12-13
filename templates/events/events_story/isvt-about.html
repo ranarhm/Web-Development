@@ -1,0 +1,21 @@
+{% extends "events/base.html" %}
+{% load static %}
+{% block page-title %}About{% endblock %}
+{% block title %}
+    <div id="title">
+        <h2>About ISVT</h2>
+    </div><!-- #title -->
+{% endblock %}
+{% block content %}
+    <div id="about">
+        <h4>A collective of Iranian students at Virginia Tech.</h4>
+        <p>The Iranian Society at Virginia Tech is a non-religious, non-political student organization aiming to promote Persian culture among Virginia Tech Community and support the Iranian community in Blacksburg and National Capital Region.</p>
+    <p>The purpose of this webpage is to serve Iranian students and anyone who is interested in Iranian society at Virginia Tech. You're more than welcome to <a href="{% url 'events:join' %}">become a member</a> and post any personal ads and discussion here.</p>
+
+     </div><!-- #about -->
+
+{% endblock %}
+
+{% block ad %}
+
+{% endblock %}

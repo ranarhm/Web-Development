@@ -37,7 +37,7 @@ ul#primary-nav {
 ul#primary-nav li a {
     display: block;
     text-decoration: none;
-    padding: 10px 30px;
+    padding: 10px 42px;
     background-color: gray;
     color: white;
 }
@@ -67,6 +67,10 @@ ul#primary-nav li a.selected {
 
 }
 
+div#about {
+    list-style-type: none;
+    margin-left: 5%;
+}
 
 form.create-event input {
     width: 50px;
@@ -106,6 +110,34 @@ div.event-story {
     border-bottom: 1px solid black;
 }
 
+ul.messages {
+        font-weight: bold;
+        margin-left: 9%;
+        width: 53%;
+        list-style: none;
+    }
+
+
+
+ul.messages li.success {
+        background-color: lightgreen;
+}
+
+ul.messages li.info {
+        background-color: lightblue;
+}
+
+ul.messages li.warning {
+        background-color: red;
+}
+
+div.img-story img,
+div.img-story p {
+        clear: left;
+        width: 90%;
+        margin-left: 5%;
+    }
+
 form#search-box {
     float: right;
 }
@@ -143,6 +175,16 @@ form#discard-box input.button {
     height: 20px;
 }
 
+form#register-user input,
+form#register-user button,
+form#register-user p,
+form#register-cancel-box button {
+        width: 50%;
+        margin-left: 21.5%;
+        margin-top: 2%;
+        height: 20px;
+    }
+
 form#create-event input {
     margin-left: 120px;
     width: 100px;
@@ -155,6 +197,7 @@ div.event-story img {
 div.event-story img {
     float: left;
 }
+
 
 div.event-date {
     float: left;
@@ -248,20 +291,8 @@ div#attendees div.numI {
     margin-left: 80px;
 }
 
-/*button.cancel {*/
-/*    margin-left: 230px;*/
-/*    width: 50px;*/
-/*    height: 30px;*/
-/*    text-align: center;*/
-/*}*/
 
-/*button.save {*/
-/*    margin-left: 20px;*/
-/*    width: 50px;*/
-/*    height: 30px;*/
-/*}*/
-
-@media all and (max-width: 368px) {
+@media all and (max-width: 768px) {
     div#events div.event-story h6 a {
         display: block;
         background-color: maroon;
@@ -282,27 +313,6 @@ div#attendees div.numI {
     /* header styles */
     div#header {
         background-color: white;
-    }
-
-    ul.messages {
-        font-weight: bold;
-        margin-left: 9%;
-        width: 53%;
-        list-style: none;
-    }
-
-
-
-    ul.messages li.success {
-        background-color: lightgreen;
-    }
-
-    ul.messages li.info {
-        background-color: lightblue;
-    }
-
-    ul.messages li.warning {
-        background-color: red;
     }
 
     div#title-search h2 {
@@ -396,6 +406,36 @@ div#attendees div.numI {
 
     div#image-box, div#intro-text {
         margin-left: 10%;
+    }
+
+    div#dashboard {
+        margin-left: 21.5%;
+        width: 80%;
+    }
+
+    div#about {
+        margin-left: 21.5%;
+        width: 80%;
+        list-style-type: none;
+    }
+
+    div#about p {
+        margin-left: 3%;
+    }
+
+    div#executive {
+        margin-left: 21.5%;
+        width: 80%;
+    }
+
+    div#join {
+        margin-left: 21.5%;
+        width: 80%;
+    }
+
+    div#contact {
+        margin-left: 21.5%;
+        width: 80%;
     }
 
     div#intro-text h1 {
@@ -560,8 +600,29 @@ div#attendees div.numI {
         width: 10%;
     }
 
+    div.profile p {
+        float: right;
+    }
+
     div.event-story form.add-to-calendar {
         margin-left: 28%;
+    }
+
+    div.event-story li {
+        margin-left: 3%;
+        list-style-type: none;
+    }
+
+    div.event-story p {
+        margin-left: 3%;
+        list-style-type: none;
+    }
+
+    div.img-story img,
+    div.img-story p {
+        clear: left;
+        width: 50%;
+        margin-left: 21.5%;
     }
 
     div.event-story div.registered {
@@ -606,24 +667,6 @@ div#attendees div.numI {
         margin-left: 5px;
     }
 
-    /*form.newEvent {*/
-    /*    margin-top: 100px;*/
-    /*    margin-left: 10%;*/
-    /*    width: 100%;*/
-    /*    height: 30px;*/
-    /*}*/
-
-    /*form.newEvent button#delete,*/
-    /*form.newEvent button#save {*/
-    /*    clear: left;*/
-    /*    margin-top: 25px;*/
-    /*    margin-left: 8%;*/
-    /*    width: 220%;*/
-    /*    height: 30px;*/
-    /*    text-align: center;*/
-    /*}*/
-
-
     div#attendees div.registered,
     div#attendees div.interested {
         display: block;
@@ -652,12 +695,13 @@ div#attendees div.numI {
         float: left;
         font-size: large;
         color: white;
+        width: 25%;
     }
 
     div#social {
         display: block;
         float: left;
-        margin-left: 20%;
+        margin-left: 15%;
         margin-top: 12px;
         list-style-type: none;
         font-size: small;

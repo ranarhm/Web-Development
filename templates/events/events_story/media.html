@@ -1,0 +1,21 @@
+{% extends "events/base.html" %}
+{% load static %}
+{% block page-title %}Media{% endblock %}
+{% block title %}
+    <div id="title">
+        <h2>Photos</h2>
+    </div><!-- #title -->
+{% endblock %}
+{% block content %}
+    <div class="img-story">
+        <img src="{% static "img/1500.jpeg" %}" alt="media1">
+        <img src="{% static "img/1500.png" %}" alt="media1">
+        <img src="{% static "img/1501.jpeg" %}" alt="media1">
+        <p>source: ISVT Facebook</p>
+     </div>
+
+{% endblock %}
+
+{% block ad %}
+
+{% endblock %}

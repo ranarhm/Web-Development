@@ -12,7 +12,6 @@
         <h2>Register User</h2>
     </div><!-- #title -->
 
-    <div class="event-story">
         <form id="register-user" action="{% url 'users:register' %}" method="post">
             <p>* = required.</p>
 
@@ -22,14 +21,13 @@
             <input id="register-last_name" type="text" name="last_name" placeholder="Last name">
             <input id="register-password" type="password" name="password" placeholder="Password*" required>
 
-            <input class="submit" type="submit" name="create" value="Register">
+            <button class="submit" type="submit" name="create" value="Register">Register</button>
             {% csrf_token %}
         </form><!-- #event-box -->
-        <form id="cancel-box" action="{% url 'events:home' %}" method="POST">
-            <input class="submit" type="submit" name="cancel" value="Cancel">
+        <form id="register-cancel-box" action="{% url 'events:home' %}" method="POST">
+            <button class="submit" type="submit" name="cancel" value="Cancel">Cancel</button>
             {% csrf_token %}
         </form>
-    </div><!-- #event-story -->
 
 {% endblock %}
 {% block ad %}

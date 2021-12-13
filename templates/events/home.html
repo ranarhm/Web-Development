@@ -4,13 +4,14 @@
 {% block content %}
     <div id="image-box">
             <!-- #image from ISVT media group in Telegram -->
-            <img src="{% static "img/intro.JPG" %}" alt="Intro">
+        <img src="{% static "img/intro.JPG" %}" alt="Intro">
         </div><!-- #image-box -->
 
         <div id="intro-text">
-            <h1>Iranian Society of Virginia Tech</h1>
-            <h3>A non-religious, non-political student organization aiming to promote Persian culture among
-                Virginia Tech Community</h3>
+            <h1>Iranian Society at Virginia Tech</h1>
+            <button class="load" data-ajax-url="{% url 'events:event_description' %}">Click me to load info!</button>
+            <div class="info"></div>
+
         </div><!-- #intro-text -->
 
         <div id="image-box2">

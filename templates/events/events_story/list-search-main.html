@@ -12,6 +12,39 @@
         <h2>Search results</h2>
     </div><!-- #title -->
 
+    {% for story in stories %}
+        <div class="event-story">
+            <div class="event-date">
+                <div class="event-month">{{ story.date_month }}</div>
+                <div class="event-day">{{ story.date_day }}</div>
+            </div><!-- #event-date -->
+{#            {% if request.session.username %}#}
+                <div class="registration">
+                    <button class="register" data-story-id="{{ story.id }}" data-ajax-url="{% url 'events:event_registered' %}">Register</button>
+                    <div class="registered">{{ story.registered }} Registered</div>
+                </div>
+{#            {% endif %}#}
+            <h3 class="event-title"><a href="{% url "events:story-detail" story.id %}" methods="GET">{{ story.title }}</a></h3>
+            <p class="event-writer">Created by <a href="{% url 'users:profile' story.user.username %}">{{ story.user.username }}</a></p>
+            {% if request.session.username %}
+                <div class="event-like">
+                    <button class="like">like</button>
+                    <div class="score">{{ story.score }}</div>
+                    <button class="dislike">dislike</button>
+                </div><!-- #event-like -->
+                <p class="event-writer">{{ story.date_posted }}</p>
+                <p class="event-byline1">Hosted by ISVT</p>
+                <form class="add-to-calendar">
+                    <input type="submit" name="add" value="Add to Calendar">
+                </form><!-- #add-to-calendar -->
+
+
+            {% else %}
+            <p class="event-byline">Hosted by ISVT</p>
+            {% endif %}
+        </div><!-- #event-story -->
+    {% endfor %}
+
 {% endblock %}
 
 {% block ad %}

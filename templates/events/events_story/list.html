@@ -51,9 +51,9 @@
             <p class="event-writer">Created by <a href="{% url 'users:profile' story.user.username %}">{{ story.user.username }}</a></p>
             {% if request.session.username %}
                 <div class="event-like">
-                    <button class="like">like</button>
+                    <button class="like" data-story-id="{{ story.id }}" data-ajax-url="{% url 'events:event_like' %}">like</button>
                     <div class="score">{{ story.score }}</div>
-                    <button class="dislike">dislike</button>
+                    <button class="dislike" data-story-id="{{ story.id }}" data-ajax-url="{% url 'events:event_dislike' %}">dislike</button>
                 </div><!-- #event-like -->
                 <p class="event-writer">{{ story.date_posted }}</p>
                 <p class="event-byline1">Hosted by ISVT</p>

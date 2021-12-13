@@ -7,14 +7,17 @@
     </div><!-- #title -->
 {% endblock %}
 {% block content %}
-    <div class="event-story">
+    <div id="about">
         {% for user in users %}
-            <div><a href="{% url "users:profile" user.username %}">{{ user.username }}</a></div>
+            <p>
+            <li><a href="{% url "users:profile" user.username %}">{{ user.username }}</a></li>
+            <li>Role: {{ user.details.role }}</li>
+            </p>
         {% endfor %}
-     </div>
+     </div><!-- #about -->
 
 {% endblock %}
 
 {% block ad %}
 
-{% endblock %}d
+{% endblock %}

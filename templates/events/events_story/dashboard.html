@@ -3,14 +3,14 @@
 {% block page-title %}Home{% endblock %}
 {% block content %}
 
-    <div id="image-box">
-        <div id="intro-text">
+{#    <div id="image-box">#}
+        <div id="dashboard">
             <h1>Iranian Society of Virginia Tech</h1>
             <h3>Welcome to your dashboard, <strong>{{ request.session.username }}</strong>!</h3>
             {% include "actions/action/feed.html" %}
         </div><!-- #intro-text -->
 
-    </div>
+{#    </div>#}
 {% endblock %}
 {% block ad %}
 

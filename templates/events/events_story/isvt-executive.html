@@ -1,0 +1,30 @@
+{% extends "events/base.html" %}
+{% load static %}
+{% block page-title %}Members Directory{% endblock %}
+{% block title %}
+    <div id="title">
+        <h2>The ISVT Executive Board</h2>
+    </div><!-- #title -->
+{% endblock %}
+{% block content %}
+    {% for user in users %}
+        <div id="executive">
+            <a href="{% url "users:profile" 'Alex' %}"><h4>Alex Habibi</h4></a>
+            <p>Admin</p>
+            <a href="{% url "users:profile" 'Fariddedin' %}"><h4>Fariddedin Bazzel</h4></a>
+            <p>Admin</p>
+            <a href="{% url "users:profile" 'Saeed' %}"><h4>Saeed Behzadi</h4></a>
+            <p>Admin</p>
+            <a href="{% url "users:profile" 'Deena' %}"><h4>Deena Daneshvaziri</h4></a>
+            <p>Admin</p>
+            <a href="{% url "users:profile" 'Ali' %}"><h4>Ali Hassani</h4></a>
+        <p>Admin</p>
+
+     </div><!-- #directory -->
+    {% endfor %}
+
+{% endblock %}
+
+{% block ad %}
+
+{% endblock %}

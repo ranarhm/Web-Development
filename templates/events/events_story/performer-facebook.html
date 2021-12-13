@@ -1,0 +1,27 @@
+{% extends "events/base.html" %}
+{% load static %}
+{% block page-title %}Performer's Facebook{% endblock %}
+{% block title %}
+    <div id="title">
+        <h2>Please Provide a Link to the Guest's Facebook Home Page</h2>
+    </div><!-- #title -->
+{% endblock %}
+{% block content %}
+    <div class="event-story">
+{#            <h2>Link to the Performer's Facebook Home Page</h2>#}
+            <form id="event-box" action="{% url 'events:performer_facebook_added' story.id %}" method="POST">
+{#                <p>* = required.</p>#}
+                <h4 class="performers">Guest: {{ story.performers }}</h4>
+
+                <input id="add-url" type="text" name="add-url" placeholder="http://">
+
+                <input class="save" type="submit" name="submit" value="Submit">
+                {% csrf_token %}
+            </form><!-- #event-box -->
+    </div>
+
+{% endblock %}
+
+{% block ad %}
+
+{% endblock %}

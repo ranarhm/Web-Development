@@ -5,50 +5,31 @@
     <script src="{% static "JS/jquery-3.6.0.min.js" %}"></script>
     <script src="{% static "JS/scripts.js" %}"></script>
 {% endblock %}
-{% block page-title %}Edit Events Story{% endblock %}
+{% block page-title %}Edit Event: {{ story.title }}{% endblock %}
 {% block content %}
 
-    <div id="title-event">
-            <h2>Create Event</h2>
-            <div class="event-type">
-                <form class="checkbox">
-                    <input type="checkbox" name="checkbox">
-                </form><!-- #checkbox -->
-                <img src="#" alt="Laptop">
-                <h4>Online</h4>
-            </div><!-- #event-type -->
-            <div class="event-type">
-                <form class="checkbox">
-                    <input type="checkbox" name="checkbox">
-                </form><!-- #checkbox -->
-                <img src="#" alt="People">
-                <h4>In Person</h4>
-            </div><!-- #event-type -->
-        </div><!-- #title -->
+    <div class="event-story">
+        <h2>Edit Event: {{ story.title }}</h2>
+        <h4><a href="#">{{ story.user.username }}</a> - Host</h4>
+        <form id="event-box" action="{% url 'events:event_changed' story.id %}" method="POST">
 
-        <div class="event-story">
-            <h2>Event Details</h2>
-            <img src="#" alt="Person">
-            <h4><a href="#">{{ story.user.username }}</a> - Host</h4>
-            <form id="event-box" action="{% url 'events:event_changed' story.id %}" method="POST">
+            <input id="edit-title" type="text" name="edit-title" value="{{ story.title }}" placeholder="Title">
+            <input id="edit-description" type="text" name="edit-description" value="{{ story.description }}" placeholder="Description">
+            <input id="edit-date" type="text" name="edit-date" value="{{ story.date_weekday }} {{ story.date_month }} {{ story.date_day }}" placeholder="Start Date">
+            <input id="edit-time" type="text" name="edit-time" value="{{ story.date_month }}" placeholder="Start Time">
+            <h5><a href="#">+ End Date and Time</a></h5>
+            <input id="edit-location" type="text" name="edit-location" value="{{ story.location }}" placeholder="Location">
+            <input id="edit-guests" type="text" name="edit-guests" value="{{ story.performers }}" placeholder="Guests">
+            <input id="edit-role" type="text" name="edit-role" value="{{ story.role }}" placeholder="Role" >
 
-                <input id="edit-title" type="text" name="edit-title" value="{{ story.title }}" placeholder="Title">
-                <input id="edit-description" type="text" name="edit-description" value="{{ story.description }}" placeholder="Description">
-                <input id="edit-date" type="text" name="edit-date" value="{{ story.date_weekday }} {{ story.date_month }} {{ story.date_day }}" placeholder="Start Date">
-                <input id="edit-time" type="text" name="edit-time" value="{{ story.date_month }}" placeholder="Start Time">
-                <h5><a href="#">+ End Date and Time</a></h5>
-                <input id="edit-location" type="text" name="edit-location" value="{{ story.location }}" placeholder="Location">
-                <input id="edit-guests" type="text" name="edit-guests" value="{{ story.performers }}" placeholder="Guests">
-                <input id="edit-role" type="text" name="edit-role" value="{{ story.role }}" placeholder="Role" >
-
-                <input id="save" class="button" type="submit" value="Save">
-                {% csrf_token %}
-            </form><!-- #event-box -->
-            <form id="discard-box" action="{% url 'events:story-list' %}" method="POST">
-                <input id="delete" class="button" type="submit" value="Discard">
-                {% csrf_token %}
-            </form>
-        </div><!-- #event-story -->
+            <input id="save" class="button" type="submit" value="Save">
+            {% csrf_token %}
+        </form><!-- #event-box -->
+        <form id="discard-box" action="{% url 'events:story-list' %}" method="POST">
+            <input id="delete" class="button" type="submit" value="Discard">
+            {% csrf_token %}
+        </form>
+    </div><!-- #event-story -->
 
 {% endblock %}
 

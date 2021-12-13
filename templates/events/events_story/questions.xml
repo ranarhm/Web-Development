@@ -13,9 +13,15 @@
 <input type='hidden' value='' name='assignmentId' id='assignmentId'/>
 
 <ol>
-    <li>Please open <a href="http://{{ domain }}{% url 'events:edit' story_id %}?mturk=yes" target="_blank">this link</a> in a new browser tab.</li>
-    <li>Edit the title to make it more exciting and interesting.</li>
-    <li>Click the "save" button and return to MTurk.</li>
+    <li>Please open <a href="http://{{ domain }}{% url 'events:performer_facebook' story_id %}?mturk=yes" target="_blank">this link</a> in a new browser tab.</li>
+{#    <li>Edit the title to make it more exciting and interesting.</li>#}
+{#    <li>Edit the title to make it more exciting and interesting.</li>#}
+{#    <li>Click the "save" button and return to MTurk.</li>#}
+    <li>Instructions:</li>
+    <li>Given a guest name, find the following Facebook Information:</li>
+    <li>URL link to profile page</li>
+    <li>Click the "submit" button and return to MTurk.</li>
+    <li>Note: If the guest does not have a Facebook account, please leave the box blank.</li>
     <li>Confirm you completed the task by checking the box and clicking the "submit" button.</li>
 </ol>
 

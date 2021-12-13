@@ -130,9 +130,9 @@ def event_added(request):
         # question = open(name='questions.xml', mode='r').read()
         question = render_to_string('events/events_story/questions.xml', {'story_id': es.id, 'domain': request.META['HTTP_HOST']})
         new_hit = mturk.create_hit(
-            Title='Make an event story headline more exciting',
-            Description='Read an event story headline and description and edit it to make it more exciting and interesting',
-            Keywords='headline, event, writing, cs5774f21',
+            Title='Find the Facebook Home Page link for a Given Guest',
+            Description='Use Google, social media platforms, or any other resources to find the Facebook home page link for a given guest.',
+            Keywords='headline, event, facebook, cs5774f21',
             Reward='0.15',
             MaxAssignments=10,
             LifetimeInSeconds=600,
@@ -235,14 +235,6 @@ def delete_event(request, story_id):
     instance = EventsStory.objects.get(id=story_id)
     instance.delete()
 
-    user = User.objects.get(username=request.session.get("username"))
-    # log the action
-    action = Action(
-        user=user,
-        verb="deleted a story",
-        target=instance
-    )
-    action.save()
     messages.add_message(request, messages.WARNING, "The following event story was deleted: %s" % instance.title)
 
     return redirect('events:story-list')
@@ -268,13 +260,81 @@ def events_story_registered(request):
         return JsonResponse({'error': 'Invalid Ajax request.'}, status=400)
 
 
+def events_story_like(request):
+    # redirect if not logged in
+    if not request.session.get("username", False):
+        return redirect('events:story-list')
+
+    is_ajax = request.headers.get('x-requested-with') == 'XMLHttpRequest'
+    if is_ajax and request.method == "POST":
+        story_id = request.POST.get('story_id')
+        try:
+            story = EventsStory.objects.get(pk=story_id)
+            story.score = story.score + 1
+            story.save()
+            return JsonResponse({'success': 'success', 'score': story.score}, status=200)
+
+        except EventsStory.DoesNotExist:
+            return JsonResponse({'error': 'No story found with that ID.'}, status=200)
+    else:
+        return JsonResponse({'error': 'Invalid Ajax request.'}, status=400)
+
+
+def events_story_dislike(request):
+    # redirect if not logged in
+    if not request.session.get("username", False):
+        return redirect('events:story-list')
+
+    is_ajax = request.headers.get('x-requested-with') == 'XMLHttpRequest'
+    if is_ajax and request.method == "POST":
+        story_id = request.POST.get('story_id')
+        try:
+            story = EventsStory.objects.get(pk=story_id)
+            story.score = story.score - 1
+            story.save()
+            return JsonResponse({'success': 'success', 'score': story.score}, status=200)
+
+        except EventsStory.DoesNotExist:
+            return JsonResponse({'error': 'No story found with that ID.'}, status=200)
+    else:
+        return JsonResponse({'error': 'Invalid Ajax request.'}, status=400)
+
+
+def events_story_description(request):
+    # redirect if not logged in
+    if not request.session.get("username", False):
+        return redirect('events:home')
+
+    is_ajax = request.headers.get('x-requested-with') == 'XMLHttpRequest'
+    if is_ajax and request.method == "GET":
+        # story_id = request.POST.get('story_id')
+        try:
+            story = EventsStory.objects.all()
+            story.info = story.info
+            story.save()
+            return JsonResponse({'success': 'success', 'info': story.info}, status=200)
+
+        except EventsStory.DoesNotExist:
+            return JsonResponse({'error': 'No data found with that ID.'}, status=200)
+    else:
+        return JsonResponse({'error': 'Invalid Ajax request.'}, status=400)
+
+
 def search_results(request):
+    events_stories = EventsStory.objects.filter(title__contains="party")
+    return render(request,
+                  "events/events_story/list-search-main.html",
+                  {"stories": events_stories}
+                  )
+
+
+def search_results_none(request):
     return render(request,
                   "events/events_story/list-search-main.html",
                   )
 
 
-def view_comment(request):
+def view_comments(request):
     events_stories = Comment.objects.all()
     return render(request,
                   "events/events_story/comments.html",
@@ -305,7 +365,7 @@ def add_comment(request):
         )
         action.save()
         messages.add_message(request, messages.SUCCESS, "You successfully posted a new comment")
-        return redirect('events:view_comment')
+        return redirect('events:view_comments')
     else:
         # show the template
         return render(request,
@@ -313,11 +373,56 @@ def add_comment(request):
                       )
 
 
-def delete_comment(request, comment_id):
-    cm = Comment.objects.get(id=comment_id)
-    cm.delete()
+def edit_comment(request, comment_id):
+    comment = Comment.objects.get(id=comment_id)
+    return render(request,
+                  "events/events_story/edit-comment.html",
+                  {"comment": comment}
+                  )
 
-    return redirect('events:view_comment')
+
+def delete_comment(request, comment_id):
+    user = User.objects.get(username=request.session.get("username"))
+    if request.session['username'] == user.id or request.session['role'] == 'admin':
+        cm = Comment.objects.get(id=comment_id)
+        cm.delete()
+
+        return redirect('events:view_comments')
+
+
+def comment_changed(request, comment_id):
+
+    cm = Comment.objects.get(pk=comment_id)
+
+    user = User.objects.get(username=request.session.get("username"))
+
+    # if user.id == cm.user.id or request.session['role'] == 'admin':
+    if request.method == 'POST':
+        # process the form
+        title = request.POST.get('edit-title')
+        comment = request.POST.get('edit-comment')
+
+        if title:
+            cm.title = title
+        if comment:
+            cm.comment = comment
+
+        cm.save()
+
+        # log the action
+        action = Action(
+            user=user,
+            verb="edited a comment",
+            target=cm
+        )
+        action.save()
+
+        return redirect('events:view_comments')
+    else:
+        # show the template
+        return render(request,
+                      "events/events_story/edit-comment.html",
+                      )
 
 
 def members(request):
@@ -327,3 +432,61 @@ def members(request):
                   {"users": user}
                   )
 
+
+def performer_facebook(request, story_id):
+    story = EventsStory.objects.get(pk=story_id)
+    return render(request,
+                  "events/events_story/performer-facebook.html",
+                  {"story": story}
+                  )
+
+
+def performer_facebook_added(request, story_id):
+
+    es = EventsStory.objects.get(pk=story_id)
+    if request.method == 'POST':
+        # process the form
+        url = request.POST.get('add-url')
+
+        if url:
+            es.url = url
+        es.save()
+
+        return redirect('events:story-detail', story_id=story_id)
+    else:
+        # show the template
+        return render(request,
+                      "events/events_story/performer-facebook.html",
+                      )
+
+
+def contact(request):
+    return render(request,
+                  "events/events_story/contact.html",
+                  )
+
+
+def media(request):
+    return render(request,
+                  "events/events_story/media.html",
+                  )
+
+
+def about(request):
+    return render(request,
+                  "events/events_story/isvt-about.html",
+                  )
+
+
+def directory(request):
+    user = User.objects.all()
+    return render(request,
+                  "events/events_story/isvt-executive.html",
+                  {"users": user}
+                  )
+
+
+def join(request):
+    return render(request,
+                  "events/events_story/isvt-join.html",
+                  )

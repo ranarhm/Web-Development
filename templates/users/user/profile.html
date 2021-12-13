@@ -21,14 +21,17 @@
             <dd>{{ user.password.decode }}</dd>
             <dt>Email address</dt>
             <dd>{{ user.email }}</dd>
+            <dt>Based in:</dt>
+            <input type="checkbox" class="blacksburg" name="blacksburg"><p>Blacksburg</p>
+            <input type="checkbox" name="national capitol region" value="National Capital Region"><p>National Capital Region</p>
             <form class="calendar-open">
-                <input type="submit" name="calendar" value="Configure Calendar and Events">
+                <a href="https://calendar.google.com/"><input type="submit" name="calendar" value="Configure Calendar and Events"></a>
             </form><!-- #calendar -->
-            {% if request.session.username != null %}
+            {% if request.session.role == "admin" or request.session.username == user.username %}
                 <form class="edit" action="{% url 'users:edit_profile' user.username %}" method="POST">
-                {% csrf_token %}
-                <input type="submit" name="edit" value="Edit Profile">
-            </form><!-- #edit -->
+                    {% csrf_token %}
+                    <input type="submit" name="edit" value="Edit Profile">
+                </form><!-- #edit -->
             {% endif %}
         </dl>
 

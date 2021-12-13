@@ -18,10 +18,10 @@
             <!-- #image from ISVT media group in Telegram -->
             <img src="{% static "img/Logo.png" %}" alt="Logo">
             <h4>ISVT</h4>
-            <h5>Iranian Society of Virginia Tech</h5>
+            <h5>Iranian Society at Virginia Tech</h5>
         </div><!-- #title-box -->
 
-        <form id="search-box" action="{% url 'events:search-results' %}" method="GET">
+        <form id="search-box" action="{% url 'events:search-results_none' %}" method="GET">
             <input type="search" name="search" placeholder="search">
         </form><!-- #search-box -->
 
@@ -53,10 +53,9 @@
                 </a>
             </li>
             <li><a href="{% url 'events:story-list' %}">Programs and Events</a></li>
-            <li><a href="#">Discussion</a></li>
             <li><a href="{% url 'events:members' %}">Members</a></li>
-            <li><a href="#">Media</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="{% url 'events:media' %}">Media</a></li>
+            <li><a href="{% url 'events:contact' %}">Contact</a></li>
         </ul><!-- #primary-nav -->
 
     </div><!-- #header -->
@@ -85,19 +84,14 @@
         <div id="side-bar">
             {% block ad %}{% endblock %}
         </div><!-- #side-bar -->
-
-{#    <div id="side-bar">#}
-{#            <a href="#" class="ad"><img src="{% static "img/ad.jpg" %}" alt="Ad"></a>#}
-{#            <a href="#" class="ad"><img src="{% static "img/ad.jpg" %}" alt="Ad"></a>#}
-{#        </div><!-- #side-bar -->#}
     </div><!-- #content -->
 
     <div id="footer">
         <p id="copyright">Copyright 2021 Iranian Society at VT</p>
         <div id="social">
-            <a href="#"><img src="#" alt="Facebook"></a>
-            <a href="#"><img src="#" alt="Twitter"></a>
-            <a href="#"><img src="#" alt="Instagram"></a>
+            <a href="https://www.facebook.com/groups/248093027376">Facebook</a>
+            <a href="#">Twitter</a>
+            <a href="#">Instagram</a>
         </div><!-- #social -->
 
         <p id="menu"><a href="#">Policies</a> | <a href="#">Contact</a>

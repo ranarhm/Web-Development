@@ -20,6 +20,7 @@ class EventsStory(models.Model):
     performers = models.CharField(max_length=100)
     role = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
+    url = models.CharField(max_length=500)
 
     def __str__(self):
         return self.title
@@ -34,6 +35,12 @@ class Comment(models.Model):
     author = models.CharField(max_length=50)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date_posted = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse('events:view_comments')
 
 
 # hard-coded user accounts

@@ -23,21 +23,24 @@
         <h3>{{ story.title }}</h3>
         <p class="event-description">{{ story.description }}</p>
         {% if request.session.username %}
-            <h6><a href="{% url 'events:view_comment'%}">View comments</a></h6>
+            <h6><a href="{% url 'events:view_comments'%}">View comments</a></h6>
         {% endif %}
         <h6>Learn more form Wikipedia</h6>
         <p><a href="http://en.wikipedia.org/wiki/{{ top_wiki_title|urlencode }}">{{ top_wiki_title }}</a></p>
     </div><!-- #detail-story -->
     <div class="event-story">
         <div id="performers"><h2>Performers</h2>
-            <p class="performers">{{ story.role }}<a href="#"> {{ story.performers }}</a>
+            <p class="performers"><a href="{{ story.url }}"> {{ story.performers }}</a> {{ story.role }}</p>
+{#            <p class="performers"> {{ story.role }}</p>#}
+            {% if request.session.role == "admin" or request.session.username == "admin" %}
+                <h6 class="performers"><a href="{% url 'events:performer_facebook' story.id %}"> Facebook</a></h6>
+            {% endif %}
         </div><!-- #performers -->
     </div><!-- #event-story -->
 {% endblock %}
 
 {% block ad %}
     <div id="side-bar">
-        <a href="https://www.google.com/maps/place/German+Club/@37.2202811,-80.4256304,13.25z/data=!4m5!3m4!1s0x884d95063054ad3f:0x6ace67bb1f508f6d!8m2!3d37.2156416!4d-80.4134854" class="map"><img src="{% static "img/Google%20Map.png" %}" alt="Map"></a>
         <h2>Attendees</h2>
         <div id="attendees">
             <div class="registered">
@@ -49,7 +52,7 @@
                 <div class="numI">{{ story.score }}</div>
             </div><!-- #interested -->
         </div><!-- #attendees -->
-{#        {% if request.session.role == "admin" or request.session.username == "admin" %}#}
+        {% if request.session.role == "admin" or request.session.username == story.user.username %}
             <form class="edit" action="{% url 'events:edit' story.id %}" method="POST">
                 {% csrf_token %}
                 <input type="submit" name="edit" value="Edit Event">
@@ -58,6 +61,6 @@
                 {% csrf_token %}
                 <input type="submit" name="delete" value="Delete Event">
             </form><!-- #delete -->
-{#        {% endif %}#}
+        {% endif %}
     </div><!-- #side-bar -->
 {% endblock %}

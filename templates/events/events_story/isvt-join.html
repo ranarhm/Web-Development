@@ -1,0 +1,21 @@
+{% extends "events/base.html" %}
+{% load static %}
+{% block page-title %}Join{% endblock %}
+{% block title %}
+    <div id="title">
+        <h2>Join Us</h2>
+    </div><!-- #title -->
+{% endblock %}
+{% block content %}
+    <div id="join">
+        <h3>Connecting with the community:</h3>
+        <p> This group is for ISVT announcements and events. If you have any questions or would like to connect with the Iranian Community at VT, please make your membership request to join us using the link below:</p>
+        <a href="{% url 'users:register' %}">JOIN</a>
+
+     </div><!-- #join -->
+
+{% endblock %}
+
+{% block ad %}
+
+{% endblock %}
