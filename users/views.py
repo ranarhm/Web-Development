@@ -84,22 +84,15 @@ def logout_user(request):
 
 
 def edit_profile(request, username):
-    pf = User.objects.all()
-    print(username)
-
-    for field in pf:
-        if field == username:
-            break
-    print(field)
-
-    usr_obj = User.objects.get(username=username)  # username is unique
+    username = User.objects.get(username=username)  # username is unique
     return render(request,
                   "users/user/useredit_form.html",
-                  {"username": usr_obj}
+                  {"username": username}
                   )
 
 
-def user_edit(request):
+def update_profile(request, username):
+    user = User.objects.get(username=username)
     if request.method == 'POST':
         # process the form
         first_name = request.POST.get('edit-first-name')
@@ -107,7 +100,7 @@ def user_edit(request):
         role = request.POST.get('edit-role')
         password = request.POST.get('edit-password')
 
-        user = User.objects.get(username=request.session.get("username"))
+        # user = User.objects.get(username=request.session.get("username"))
 
         ur = User.objects.all()[0]
         if first_name:
@@ -121,7 +114,12 @@ def user_edit(request):
             user.set_password(password)
         user.save()
 
-        return redirect('users:profile', user.username)
+        return redirect('users:profile', username=username)
+    else:
+        # show the template
+        return render(request,
+                      "users/user/useredit_form.html",
+                      )
 
 
 

@@ -8,7 +8,7 @@
 {% endblock %}
 {% block content %}
     <div class="event-story">
-        <form id="event-box" action="{% url 'users:user_edit' %}" method="POST">
+        <form id="event-box" action="{% url 'users:update_profile' username.username %}" method="POST">
             <input id="edit-first-name" type="text" name="edit-first-name" value="{{ username.first_name }}" placeholder="First Name">
             <input id="edit-last-name" type="text" name="edit-last-name" value="{{ username.last_name }}" placeholder="Last Name">
             {% if request.session.role == "admin" or request.session.username == "admin" %}
