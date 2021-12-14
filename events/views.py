@@ -425,7 +425,6 @@ def comment_changed(request, comment_id):
                           )
 
 
-
 def members(request):
     user = User.objects.all()
     return render(request,
@@ -480,10 +479,8 @@ def about(request):
 
 
 def directory(request):
-    user = User.objects.all()
     return render(request,
                   "events/events_story/isvt-executive.html",
-                  {"users": user}
                   )
 
 

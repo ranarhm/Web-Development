@@ -7,7 +7,7 @@
     </div><!-- #title -->
 {% endblock %}
 {% block content %}
-    {% for user in users %}
+{#    {% for user in users %}#}
         <div id="executive">
             <a href="{% url "users:profile" 'Alex' %}"><h4>Alex Habibi</h4></a>
             <p>Admin</p>
@@ -21,7 +21,7 @@
         <p>Admin</p>
 
      </div><!-- #directory -->
-    {% endfor %}
+{#    {% endfor %}#}
 
 {% endblock %}
 
