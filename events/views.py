@@ -116,35 +116,6 @@ def event_added(request):
         )
         es.save()
 
-        # begin mturk
-        mturk_sandbox = 'https://mturk-requester-sandbox.us-east-1.amazonaws.com'
-        mturk = boto3.client('mturk',
-                             aws_access_key_id="AKIA2H4GXO6OS6WFJL4Z",
-                             aws_secret_access_key="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",
-                             region_name='us-east-1',
-                             endpoint_url=mturk_sandbox
-                             )
-        print("I have $" + mturk.get_account_balance()['AvailableBalance'] + " in my Sandbox account")
-
-        # question = open(name='questions.xml', mode='r').read()
-        question = render_to_string('events/events_story/questions.xml', {'story_id': es.id, 'domain': request.META['HTTP_HOST']})
-        new_hit = mturk.create_hit(
-            Title='Find the Facebook Home Page link for a Given Guest',
-            Description='Use Google, social media platforms, or any other resources to find the Facebook home page link for a given guest.',
-            Keywords='headline, event, facebook, cs5774f21',
-            Reward='0.15',
-            MaxAssignments=10,
-            LifetimeInSeconds=600,
-            AssignmentDurationInSeconds=600,
-            AutoApprovalDelayInSeconds=600,
-            Question=question,
-        )
-        print("A new HIT has been created. You can preview it here:")
-        print("https://workersandbox.mturk.com/mturk/preview?groupId=" + new_hit['HIT']['HITGroupId'])
-        print("HITID = " + new_hit['HIT']['HITId'] + " (Use to Get Results)")
-
-        # end mturk
-
         # log the action
         action = Action(
             user=user,
